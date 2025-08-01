@@ -1,4 +1,4 @@
-repository: tomjoht/documentation-theme-jekyll
+repository: BeolLe/BeolLe.github.io
 
 output: web
 # this property is useful for conditional filtering of content that is separate from the PDF.
@@ -110,7 +110,7 @@ description: "Intended as a documentation theme based on Jekyll for technical wr
 # the description is used in the feed.xml file
 
 # needed for sitemap.xml file only
-# url: http://idratherbewriting.com
+url: https://github.com/BeolLe/BeolLe.github.io
 # baseurl: /documentation-theme-jekyll
 
 
