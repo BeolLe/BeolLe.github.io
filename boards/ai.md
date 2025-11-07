@@ -1,8 +1,7 @@
 ---
 title: "AI 게시판"
 layout: page       
-sidebar: home_sidebar
-permalink: /boards/ai/g
+permalink: /boards/ai/
 ---
 
 # AI 게시판
