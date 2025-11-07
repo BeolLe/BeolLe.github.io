@@ -15,15 +15,15 @@ topnav_dropdowns:
     - title: Study
       folderitems:
         - title: AI
-          external_url: /boards/ai/
+          url: /boards/ai/
         - title: Computer Science
-          external_url: /boards/cs/
+          url: /boards/cs/
         - title: Data Analysis
-          external_url: /boards/da/
+          url: /boards/da/
         - title: Network
-          external_url: /boards/net/
+          url: /boards/net/
         - title: Cloud
-          external_url: /boards/cloud/
+          url: /boards/cloud/
     - title: Portfolio
       folderitems:
         - title: Portfolio
