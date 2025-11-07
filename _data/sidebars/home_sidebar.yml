@@ -18,10 +18,10 @@ entries:
       url: /boards/da/
       output: web
     - title: Netwrok
-      url: /boards/net
+      url: /boards/net/
       output: web
     - title: Cloud
-      url: /boards/cloud
+      url: /boards/cloud/
       output: web
   
   - title: Portfolio
