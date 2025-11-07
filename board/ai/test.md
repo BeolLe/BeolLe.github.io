@@ -1,1 +1,0 @@
-# ai folder making
