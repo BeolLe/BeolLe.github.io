@@ -9,13 +9,13 @@ entries:
     output: web
     folderitems:
     - title: AI
-      url: /boards/ai
+      url: /boards/ai/
       output: web
     - title: Computer Science
-      url: /boards/cs
+      url: /boards/cs/
       output: web
     - title: Portfolio
-      url: /boards/pf
+      url: /boards/pf/
       output: web
     - title: Contact
       url: /pages/contact.html
