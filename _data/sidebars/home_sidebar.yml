@@ -14,19 +14,26 @@ entries:
     - title: Computer Science
       url: /boards/cs/
       output: web
-    - title: Portfolio
-      url: /boards/pf/
+    - title: Data Analysis
+      url: /boards/da/
       output: web
-    - title: Contact
-      url: /pages/contact.html
-      output: web
-      
+    - title: Netwrok
+      url: /boards/net
+  
+  - title: Portfolio
+    url: /boards/pf/
+    output: web
+    type: signle
+  
+  - title: Contact
+    url: /pages/contact/
+    output: web
+    type: single
+
   - title: Life
+    url: /pages/life/
     output: web
-    folderitems:
-    - title: Life
-    url: /pages/life.html
-    output: web
+    type: single
 
 
 # Copyright 2021 Google LLC

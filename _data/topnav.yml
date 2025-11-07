@@ -15,22 +15,18 @@ topnav_dropdowns:
     - title: Study
       folderitems:
         - title: AI
-          external_url: /study/ai/
+          external_url: /boards/ai/
         - title: Computer Science
-          external_url: /study/cs/
+          external_url: /boards/cs/
         - title: Data Analysis
-          external_url: /study/da/
+          external_url: /boards/da/
         - title: Network
-          external_url: /study/networks/
+          external_url: /boards/net/
         - title: Cloud
-          external_url: /study/cloud/
+          external_url: /boards/cloud/
     - title: Portfolio
       folderitems:
         - title: Meta Kaggle
-          url: /portfolio/meta_kaggle/
-        - title: Prepairing 1
-          url: /portfolio/prep1/
-        - title: Prepairing 2
-          url: /portfolio/prep2/
+          url: /boards/pf/
 
 # Copyright 2021 Google LLC
