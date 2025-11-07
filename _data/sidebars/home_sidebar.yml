@@ -32,7 +32,6 @@ entries:
   - title: Contact
     url: /pages/contact/
     output: web
-    type: single
 
   - title: Life
     external_url: https://ronny-data.tistory.com
