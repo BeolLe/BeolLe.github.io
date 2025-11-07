@@ -20,7 +20,6 @@ entries:
     - title: Contact
       url: /pages/contact.html
       output: web
-      
   - title: Life
     output: web
     folderitems:
