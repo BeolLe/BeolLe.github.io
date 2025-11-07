@@ -19,6 +19,10 @@ entries:
       output: web
     - title: Netwrok
       url: /boards/net
+      output: web
+    - title: Cloud
+      url: /boards/cloud
+      output: web
   
   - title: Portfolio
     url: /boards/pf/
