@@ -21,11 +21,12 @@ entries:
       url: /pages/contact.html
       output: web
       
-  - title: ""
+  - title: Life
     output: web
     folderitems:
       - title: Life
-        url: https://ronny-data.tistory.com/
-        output: web
+      url: /pages/life.html
+      output: web
+
 
 # Copyright 2021 Google LLC
