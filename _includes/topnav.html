@@ -55,9 +55,13 @@
                 {% endfor %}
                 {% endfor %}
 
+                {% comment %}
+
                 {% if site.feedback_disable == null or site.feedback_disable == false %}
 			        {% include feedback.html %}
 		        {% endif %}
+
+                {% endcomment %}
 
                 <!--comment out this block if you want to hide search-->
                 <li>

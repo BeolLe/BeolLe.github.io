@@ -33,10 +33,5 @@ entries:
     url: /pages/contact/
     output: web
 
-  - title: Life
-    external_url: https://ronny-data.tistory.com
-    output: web
-    type: single
-
 
 # Copyright 2021 Google LLC
