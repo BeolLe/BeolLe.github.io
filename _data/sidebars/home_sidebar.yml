@@ -35,7 +35,7 @@ entries:
     type: single
 
   - title: Life
-    url: /pages/life/
+    external_url: https://ronny-data.tistory.com
     output: web
     type: single
 
