@@ -1,6 +1,6 @@
 ---
 title: "AI 게시판"
-layout: page          
+layout: default       
 sidebar: home_sidebar
 permalink: /boards/ai/
 ---
