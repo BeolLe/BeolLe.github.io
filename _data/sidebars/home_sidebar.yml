@@ -20,11 +20,9 @@ entries:
     - title: Contact
       url: /pages/contact.html
       output: web
+      
   - title: Life
+    url: https://ronny-data.tistory.com/
     output: web
-    folderitems:
-      - title: Tistory
-        url: https://ronny-data.tistory.com/
-        output: web
 
 # Copyright 2021 Google LLC
