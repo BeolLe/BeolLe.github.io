@@ -9,7 +9,6 @@
                 <span class="icon-bar"></span>
             </button>
 
-            {# ★ 수정 1: 홈 아이콘 링크 - index.html(상대경로) → 루트 기준 URL #}
             <a class="fa fa-home fa-lg navbar-brand"
                href="{{ '/' | relative_url }}">
                &nbsp;<span class="projectTitle">{{ site.topnav_title }}</span>
@@ -29,7 +28,6 @@
                 {% if item.external_url %}
                 <li><a href="{{item.external_url}}" target="_blank" rel="noopener">{{item.title}}</a></li>
                 {% elsif page.url contains item.url %}
-                {# ★ 수정 2: item.url | remove: "/" → item.url | relative_url #}
                 <li class="active"><a href="{{ item.url | relative_url }}">{{item.title}}</a></li>
                 {% else %}
                 <li><a href="{{ item.url | relative_url }}">{{item.title}}</a></li>
@@ -47,7 +45,6 @@
                         {% if folderitem.external_url %}
                         <li><a href="{{folderitem.external_url}}" target="_blank" rel="noopener">{{folderitem.title}}</a></li>
                         {% elsif page.url contains folderitem.url %}
-                        {# ★ 수정 3: folderitem.url | remove: "/" → relative_url #}
                         <li class="dropdownActive"><a href="{{ folderitem.url | relative_url }}">{{folderitem.title}}</a></li>
                         {% else %}
                         <li><a href="{{ folderitem.url | relative_url }}">{{folderitem.title}}</a></li>
@@ -70,7 +67,6 @@
                         <ul id="results-container"></ul>
                     </div>
 
-                    {# (옵션) 여기 js 경로도 baseurl 고려하려면 relative_url 쓰는 게 더 안전함 #}
                     <script src="{{ 'js/jekyll-search.js' | relative_url }}" type="text/javascript"></script>
                     <script type="text/javascript">
                             SimpleJekyllSearch.init({
