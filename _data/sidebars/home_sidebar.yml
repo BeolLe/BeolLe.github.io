@@ -23,9 +23,9 @@ entries:
   - title: Life
     output: web
     folderitems:
-      - title: Life
-      url: /pages/life.html
-      output: web
+    - title: Life
+    url: /pages/life.html
+    output: web
 
 
 # Copyright 2021 Google LLC
