@@ -1,7 +1,7 @@
 ---
 title: "AI 게시판"
-layout: page          # 테마에 맞게 'page' / 'mydoc_page' 등으로 바꿔도 됨
-sidebar: home_sidebar # 형님이 실제 쓰는 사이드바 이름
+layout: page          
+sidebar: home_sidebar
 permalink: /boards/ai/
 ---
 
