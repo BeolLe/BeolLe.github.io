@@ -9,7 +9,7 @@ entries:
     output: web
     folderitems:
     - title: AI
-      url: /pages/test.md
+      url: /test.html
       output: web
     - title: Computer Science
       url: /board/cs
