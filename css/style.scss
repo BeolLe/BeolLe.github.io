@@ -1,0 +1,17 @@
+---
+---
+
+@import "jekyll-theme-primer";
+
+/* 🔹 Primer 기본 파란 헤더를 검정으로 통일 */
+.page-header {
+  background-color: #000 !important;
+  background-image: none !important;
+  color: #fff !important;
+}
+
+/* 🔹 전체 바탕/글자색 (이미 다크모드 중이면 이 부분은 형님 스타일에 맞게 조절) */
+body {
+  background-color: #000;
+  color: #f5f5f5;
+}

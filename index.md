@@ -3,4 +3,4 @@ layout: page
 title: BeolLe’s Blog
 ---
 
-Welcome to my GitHub Pages site!
+공부용 깃허브 블로그입니다.
