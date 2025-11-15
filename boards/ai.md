@@ -4,7 +4,6 @@ layout: page
 permalink: /boards/ai/
 ---
 
-# AI 게시판
 
 AI 관련 글 목록입니다.
 

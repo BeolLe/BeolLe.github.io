@@ -4,7 +4,6 @@ layout: page
 permalink: /boards/cloud/
 ---
 
-# Cloud 게시판
 
 Cloud 관련 글 목록입니다.
 

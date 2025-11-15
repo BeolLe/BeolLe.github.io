@@ -4,7 +4,6 @@ layout: page
 permalink: /boards/da/
 ---
 
-# Data Analysis 게시판
 
 Data Analysis 관련 글 목록입니다.
 

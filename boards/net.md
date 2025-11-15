@@ -4,7 +4,6 @@ layout: page
 permalink: /boards/net/
 ---
 
-# Network 게시판
 
 Network 관련 글 목록입니다.
 

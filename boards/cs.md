@@ -4,7 +4,6 @@ layout: page
 permalink: /boards/cs/
 ---
 
-# CS 게시판
 
 CS 관련 글 목록입니다.
 
