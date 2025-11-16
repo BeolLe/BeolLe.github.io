@@ -80,13 +80,14 @@
     <!-- Content Row -->
     <div class="row">
         {% assign content_col_size = "col-md-12" %}
+        {% comment %}
         {% unless page.hide_sidebar %}
-            <!-- Sidebar Column -->
             <div class="col-md-3" id="tg-sb-sidebar">
-            <!--    {% include sidebar.html %}
+                {% include sidebar.html %}
             </div>
             {% assign content_col_size = "col-md-9" %}
         {% endunless %}
+        {% endcomment %}
 
         <!-- Content Column -->
         <div class="{{content_col_size}}" id="tg-sb-content">
