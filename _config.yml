@@ -3,10 +3,10 @@ repository: BeolLe/BeolLe.github.io
 output: web
 # this property is useful for conditional filtering of content that is separate from the PDF.
 
-topnav_title: BeolLe's Studying Blog
+topnav_title: Ronny's Studying Blog
 # this appears on the top navigation bar next to the home button
 
-site_title: BeolLe's Studying Blog
+site_title: Ronny's Studying Blog
 # this appears in the html browser tab for the site title (seen mostly by search engines, not users)
 
 company_name: Copyright 2021 Google LLC
@@ -33,7 +33,7 @@ exclude:
   - vendor
 # these are the files and directories that jekyll will exclude from the build
 
-feedback_subject_line: BeolLe's Studying Blog
+feedback_subject_line: Ronny's Studying Blog
 
 feedback_email: tomjoht@gmail.com
 # used as a contact email for the Feedback link in the top navigation bar
