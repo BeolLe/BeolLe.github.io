@@ -1,0 +1,141 @@
+GPT가 알려주는 마크다운 + 리퀴드 문법
+
+# Markdown + Liquid 문법 모음
+
+## 1. Markdown 문법
+
+# 제목 (H1)
+## 제목 (H2)
+### 제목 (H3)
+
+**굵게**
+*기울임*
+~~취소선~~
+
+- 리스트 항목
+- 리스트 항목
+  - 하위 항목
+
+1. 번호 리스트
+2. 번호 리스트
+
+`인라인 코드`
+
+```python
+print("hello")
+
+
+# Liquid 문법 총정리 (Jekyll용)
+
+## 1. 변수 출력
+{{ page.title }}
+{{ page.date }}
+{{ page.url }}
+{{ site.title }}
+{{ site.url }}
+{{ site.time }}
+{{ site.categories }}
+{{ site.tags }}
+
+## 2. 조건문(if / elsif / else)
+{% if page.tags contains "ai" %}
+AI 관련 글입니다.
+{% elsif page.category == "ml" %}
+머신러닝 카테고리 글입니다.
+{% else %}
+일반 글입니다.
+{% endif %}
+
+## 3. 반복문(for)
+{% for post in site.posts %}
+- {{ post.title }} — {{ post.date | date: "%Y-%m-%d" }}
+{% endfor %}
+
+## 3-1. 카테고리별 반복
+{% for post in site.categories.ai %}
+- {{ post.title }}
+{% endfor %}
+
+## 3-2. 제한(loop limit)
+{% for post in site.posts limit:5 %}
+- 최근 글: {{ post.title }}
+{% endfor %}
+
+## 3-3. 오프셋(offset)
+{% for post in site.posts offset:2 %}
+- 3번째 글부터: {{ post.title }}
+{% endfor %}
+
+## 4. include (HTML 조각 불러오기)
+{% include header.html %}
+{% include footer.html %}
+{% include sidebar.html %}
+
+## 5. 필터 (Filters)
+
+### 5-1. 날짜 포맷
+{{ post.date | date: "%Y-%m-%d" }}
+{{ site.time | date_to_rfc822 }}
+
+### 5-2. 문자열 관련
+{{ "hello" | upcase }}
+{{ "HELLO" | downcase }}
+{{ "hello world" | capitalize }}
+{{ "BeolLeBlog" | slice: 0, 5 }}   # BeolL
+
+### 5-3. replace / remove
+{{ "hello world" | replace: "world", "형님" }}
+{{ "hello-world" | remove: "-" }}
+
+### 5-4. join
+{{ post.tags | join: ", " }}
+
+### 5-5. size
+{{ site.posts | size }}
+
+## 6. assign (변수 만들기)
+{% assign count = site.posts | size %}
+전체 글 수: {{ count }}
+
+{% assign first_post = site.posts.first %}
+첫 글 제목: {{ first_post.title }}
+
+## 7. capture (긴 텍스트 변수 저장)
+{% capture notice %}
+이건 글 상단에 항상 나오는 안내 문구입니다.
+{% endcapture %}
+{{ notice }}
+
+## 8. where (필터링)
+{% assign ai_posts = site.posts | where: "category", "ai" %}
+{% for post in ai_posts %}
+- {{ post.title }}
+{% endfor %}
+
+## 9. group_by
+{% assign grouped = site.posts | group_by: "category" %}
+{% for group in grouped %}
+## 카테고리: {{ group.name }}
+{% for post in group.items %}
+- {{ post.title }}
+{% endfor %}
+{% endfor %}
+
+## 10. default (기본값 제공)
+{{ page.author | default: "BeolLe" }}
+
+## 11. escape / escape_once
+{{ "<h1>제목</h1>" | escape }}        # HTML 문자로 출력
+{{ "<h1>제목</h1>" | escape_once }}
+
+## 12. strip / strip_html
+{{ "   형님 블로그   " | strip }}
+{{ "<p>텍스트</p>" | strip_html }}
+
+## 13. markdownify
+{{ "**굵게**" | markdownify }}
+
+## 14. raw (Liquid 코드 무시)
+{% raw %}
+{{ 이 안의 코드는 Liquid로 해석되지 않습니다 }}
+{% endraw %}
