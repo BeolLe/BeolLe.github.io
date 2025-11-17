@@ -8,6 +8,5 @@ permalink: /boards/da/
 Data Analysis 관련 글 목록입니다.
 
 {% for post in site.categories.da %}
-- [{{ post.title }}]({{ post.url }})  
-  {{ post.date | date: "%Y-%m-%d" }}
+- ({{ post.date | date: "%Y-%m-%d" }}) [{{ post.title }}]({{ post.url }})  
 {% endfor %}

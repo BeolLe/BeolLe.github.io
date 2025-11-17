@@ -8,6 +8,5 @@ permalink: /boards/cs/
 CS 관련 글 목록입니다.
 
 {% for post in site.categories.cs %}
-- [{{ post.title }}]({{ post.url }})  
-  {{ post.date | date: "%Y-%m-%d" }}
+- ({{ post.date | date: "%Y-%m-%d" }}) [{{ post.title }}]({{ post.url }})  
 {% endfor %}
