@@ -3,7 +3,7 @@ layout: post
 title: "CPU의 구조와 GPU와의 차이점 및 메모리와 저장장치의 기본 구조 및 차이"
 categories: cs
 tags: [CS]
-published: False
+published: false
 ---
 
 # 이 공부를 시작한 계기
