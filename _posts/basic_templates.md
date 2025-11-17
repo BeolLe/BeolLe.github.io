@@ -3,7 +3,7 @@ layout: post
 title: "여기에 제목"
 categories: ai
 tags: [tag1]
-published: False
+published: false
 ---
 
 ## 1. 들어가며
