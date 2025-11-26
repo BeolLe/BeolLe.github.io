@@ -2,6 +2,7 @@
 layout: page
 title: 오늘의 목표
 permalink: /goals/
+topnav: topnav
 ---
 
 <div id="today-goal-box" style="margin-bottom:20px;"></div>
@@ -55,7 +56,7 @@ permalink: /goals/
         <label style="font-size:14px; margin-top:6px; display:inline-block;">
           <input type="checkbox" disabled
             ${goal.status === "done" ? "checked" : ""}>
-          (표시용 체크박스 – status: ${goal.status})
+          (status: ${goal.status})
         </label>
       </div>
     `;
