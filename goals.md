@@ -4,9 +4,6 @@ title: 오늘의 목표
 permalink: /goals/
 ---
 
-<h2>오늘의 목표</h2>
-<div id="today-goal-box" style="margin-bottom:20px;"></div>
-
 <h2>이번 달 달력</h2>
 <div id="goals-calendar"></div>
 
