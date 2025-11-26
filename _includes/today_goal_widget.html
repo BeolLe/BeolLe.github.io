@@ -1,0 +1,54 @@
+<div id="today-goal-widget" style="padding:4px 10px;">
+  <span id="goal-status-icon"></span>
+  <span id="goal-text">로딩 중...</span>
+  <input type="checkbox" id="goal-check" disabled style="margin-left:8px;">
+</div>
+
+<script>
+  // Jekyll 컬렉션 -> JS 객체로 변환
+  const GOALS = {
+    {% for goal in site.goals %}
+      "{{ goal.date | date: '%Y-%m-%d' }}": {
+        text: {{ goal.content | strip_newlines | jsonify }},
+        status: {{ goal.status | default: 'planned' | jsonify }}
+      },
+    {% endfor %}
+  };
+
+  function getKSTDate() {
+    const now = new Date();
+    const kst = new Date(now.getTime() + 9 * 60 * 60 * 1000);
+    return kst.toISOString().slice(0, 10);  // YYYY-MM-DD
+  }
+
+  const today = getKSTDate();
+  const goal = GOALS[today] || null;
+
+  const statusIconSpan = document.getElementById("goal-status-icon");
+  const goalTextSpan = document.getElementById("goal-text");
+  const goalCheck = document.getElementById("goal-check");
+
+  if (!goal) {
+    // 오늘 목표 파일 자체가 없는 경우
+    statusIconSpan.textContent = "";
+    goalTextSpan.innerHTML = "오늘의 목표: <strong>미정!</strong>";
+    goalCheck.checked = false;
+  } else {
+    // status에 따라 아이콘/체크박스 표시
+    let icon = "";
+    if (goal.status === "done") {
+      icon = "✅";
+      goalCheck.checked = true;
+    } else if (goal.status === "missed") {
+      icon = "❌";
+      goalCheck.checked = false;
+    } else {
+      // planned 등
+      icon = "📝";
+      goalCheck.checked = false;
+    }
+
+    statusIconSpan.textContent = icon + " ";
+    goalTextSpan.innerHTML = "오늘의 목표: <strong>" + goal.text + "</strong>";
+  }
+</script>

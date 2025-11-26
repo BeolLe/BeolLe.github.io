@@ -25,6 +25,8 @@
 {% assign topnav = site.data[page.topnav] %}
 {% assign topnav_dropdowns = site.data[page.topnav].topnav_dropdowns %}
 
+{% include today_goal_widget.html %}
+
                 {% for entry in topnav.topnav %}
                 {% for item in entry.items %}
                 {% if item.external_url %}
