@@ -66,9 +66,18 @@
 
                 {% endcomment %}
 
+                <!-- Start point Today's goals -->
+                <li class="navbar-text" id="today-goal-widget">
+                    <span id="goal-status-icon"></span>
+                    <span id="goal-text"></span>
+                    <input type="checkbox" id="goal-check" disabled style="margin-left:6px; vertical-align: middle;">
+                </li>
+
+
                 <!--comment out this block if you want to hide search-->
                 <li>
                     <!--start search-->
+                    {% comment %}
                     <div id="search-demo-container">
                         <input type="text" id="search-input" placeholder="{{site.data.strings.search_placeholder_text}}">
                         <ul id="results-container"></ul>
@@ -86,6 +95,7 @@
                                 fuzzy: true,
                             })
                     </script>
+                    {% endcomment %}
                     <!--end search-->
                 </li>
             </ul>
@@ -93,7 +103,59 @@
         </div>
         <!-- /.container -->
 </nav>
-{% include today_goal_widget.html %}
+
 
 
 {% comment %} Copyright 2021 Google LLC {% endcomment %}
+
+<script>
+  // Jekyll 컬렉션 -> JS 객체로 변환
+  const GOALS = {
+    {% for goal in site.goals %}
+      "{{ goal.date | date: '%Y-%m-%d' }}": {
+        text: {{ goal.content | strip_newlines | jsonify }},
+        status: {{ goal.status | default: 'planned' | jsonify }}
+      }{% unless forloop.last %},{% endunless %}
+    {% endfor %}
+  };
+
+  function getKSTDate() {
+    const now = new Date();
+    const kst = new Date(now.getTime() + 9 * 60 * 60 * 1000); // +9시간
+    return kst.toISOString().slice(0, 10);  // YYYY-MM-DD
+  }
+
+  (function() {
+    const today = getKSTDate();
+    const goal = GOALS[today] || null;
+
+    const statusIconSpan = document.getElementById("goal-status-icon");
+    const goalTextSpan = document.getElementById("goal-text");
+    const goalCheck = document.getElementById("goal-check");
+
+    if (!goal) {
+      // 오늘 목표 파일이 없는 경우
+      if (statusIconSpan) statusIconSpan.textContent = "";
+      if (goalTextSpan) goalTextSpan.innerHTML = "📋 오늘의 목표: <strong>미정!</strong>";
+      if (goalCheck) goalCheck.checked = false;
+      return;
+    }
+
+    // status에 따라 아이콘/체크 상태 결정 (표시용)
+    let icon = "";
+    if (goal.status === "done") {
+      icon = "✅";
+      goalCheck && (goalCheck.checked = true);
+    } else if (goal.status === "missed") {
+      icon = "❌";
+      goalCheck && (goalCheck.checked = false);
+    } else {
+      // planned 등
+      icon = "📝";
+      goalCheck && (goalCheck.checked = false);
+    }
+
+    if (statusIconSpan) statusIconSpan.textContent = icon + " ";
+    if (goalTextSpan) goalTextSpan.innerHTML = "오늘의 목표: <strong>" + goal.text + "</strong>";
+  })();
+</script>
