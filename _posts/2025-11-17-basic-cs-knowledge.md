@@ -152,7 +152,9 @@ Spark같은 방식은 분산처리로 유명한 방식이지만, 이 또한 메�
         - 메모리 컨트롤러
             - 컴퓨터의 주 메모리로 들어오고 나가는 데이터를 관리하는 회로로, DRAM을 읽고 쓰는데 필요한 논리를 포함해서 메모리 리프레시 및 기타 기능을 제공하는 장치이다. 이런 역할을 하는 장치가 CPU 내부에도 있는데, 이는 CPU와 메모리 간 인터페이스 역할을 한다.
         - 코어 간 연결방법
-            - 
+            a. Symmetric MultiProcessing(= Shared-Memory multiProcessing)
+                - 두 개 이상의 프로세서가 하나의 공유된 메모리를 사용하는 아키텍쳐이다. 데이터가 메모리의 어느 위치건 상관없이 작업할 수 있게 프로세서에게 허용한다. 따라서 병렬 프로그래밍이 쉽고, 프로세서 간의 작업 분산도 쉽지만 확장성이 MPP에 비해 떨어진다. 다수의 사용자가 DB에 접근하여 일을 하는 OLTP 작업도 용이하다.
+                
 
     2. 병렬 처리 모델
         - 데이터 병렬성
@@ -213,5 +215,6 @@ Spark같은 방식은 분산처리로 유명한 방식이지만, 이 또한 메�
 23. https://ko.wikipedia.org/wiki/%EC%BA%90%EC%8B%9C_%EC%9D%BC%EA%B4%80%EC%84%B1
 24. https://ko.wikipedia.org/wiki/%EB%A9%94%EB%AA%A8%EB%A6%AC_%EC%BB%A8%ED%8A%B8%EB%A1%A4%EB%9F%AC
 25. https://hyoung-2y.tistory.com/9
+26. https://en.wikipedia.org/wiki/Symmetric_multiprocessing
 
 especially.https://chatgpt.com
