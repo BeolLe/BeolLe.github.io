@@ -7,14 +7,12 @@
 </div>
 
 <script>
-  // Jekyll 컬렉션 -> JS 객체로 변환
   const GOALS = {
     {% for goal in site.goals %}
       "{{ goal.date | date: '%Y-%m-%d' }}": {
         text: {{ goal.content | strip_newlines | jsonify }},
         status: {{ goal.status | default: 'planned' | jsonify }},
-        // 필수 추가: 데이터 바인딩
-        timetable: {{ goal.timetable | jsonify }} || []
+        timetable: {% if goal.timetable %}{{ goal.timetable | jsonify }}{% else %}[]{% endif %}
       },
     {% endfor %}
   };
@@ -31,23 +29,25 @@
   const statusIconSpan = document.getElementById("goal-status-icon");
   const goalTextSpan = document.getElementById("goal-text");
   const goalCheck = document.getElementById("goal-check");
-  const timetableList = document.getElementById("timetable-list"); // 변수 선언 추가
+  const timetableList = document.getElementById("timetable-list");
 
   if (!goal) {
     statusIconSpan.textContent = "";
     goalTextSpan.innerHTML = "오늘의 목표: <strong>미정!</strong>";
     goalCheck.checked = false;
   } else {
-    // 목표 표시 (들여쓰기 정리)
+    // 1. 상태 아이콘 및 체크박스 설정
     let icon = goal.status === "done" ? "✅" : (goal.status === "missed" ? "❌" : "📝");
     goalCheck.checked = (goal.status === "done");
     statusIconSpan.textContent = icon + " ";
     goalTextSpan.innerHTML = "오늘의 목표: <strong>" + goal.text + "</strong>";
 
-    // 시간표 표시 로직
+    // 2. 시간표 리스트 초기화 및 생성
+    timetableList.innerHTML = ""; 
     if (goal.timetable && goal.timetable.length > 0) {
       goal.timetable.forEach(item => {
         const li = document.createElement("li");
+        li.style.marginBottom = "3px";
         li.innerHTML = `<strong>${item.time}</strong> : ${item.task}`;
         timetableList.appendChild(li);
       });
