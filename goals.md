@@ -67,7 +67,6 @@ topnav: topnav
         ${icon} 오늘의 목표: <strong>${goal.text}</strong><br>
         <label style="font-size:14px; margin-top:6px; display:inline-block;">
           <input type="checkbox" disabled ${goal.status === "done" ? "checked" : ""}>
-          (status: ${goal.status})
         </label>
       </div>
     `;
