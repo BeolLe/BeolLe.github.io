@@ -1,18 +1,22 @@
 <script>
-  // 1. KST 기준 오늘 날짜 가져오는 공통 함수
+  // 1. KST 기준 날짜 관련 함수들
   function getKST() {
     const now = new Date();
     // UTC 시간에 9시간을 더해 한국 시간으로 변환
     return new Date(now.getTime() + (9 * 60 * 60 * 1000));
   }
 
+  // 필수 추가: Date 객체를 YYYY-MM-DD 문자열로 변환하는 함수
+  function getKSTDateStr(dateObj) {
+    return dateObj.toISOString().slice(0, 10);
+  }
+
   // 2. 달력 생성 실행부
   function initCalendar() {
     const todayKST = getKST();
     const currentYear = todayKST.getUTCFullYear();
-    const currentMonth = todayKST.getUTCMonth(); // 0~11 (현재 12월이면 11 반환)
+    const currentMonth = todayKST.getUTCMonth(); 
 
-    // 달력 그리기 함수 호출 (현재 연, 월 전달)
     buildCalendar(currentYear, currentMonth);
   }
 
@@ -21,60 +25,76 @@
     if (!elem) return;
     elem.innerHTML = "";
 
-    // 달력 상단에 현재 몇 월인지 표시 (출력할 때는 +1 필수)
     const title = document.createElement("div");
     title.style.textAlign = "center";
     title.style.fontWeight = "bold";
-    title.style.marginBottom = "10px";
+    title.style.marginBottom = "15px";
+    title.style.fontSize = "1.1em";
     title.innerText = `${year}년 ${month + 1}월`;
     elem.appendChild(title);
 
-    const first = new Date(year, month, 1);
-    const lastDate = new Date(year, month + 1, 0).getDate();
-
     const table = document.createElement("table");
     table.style.width = "100%";
+    table.style.tableLayout = "fixed"; 
     table.style.borderCollapse = "collapse";
     
-    // 헤더(요일) 생성
-    let headerRow = "<tr><th>일</th><th>월</th><th>화</th><th>수</th><th>목</th><th>금</th><th>토</th></tr>";
-    table.innerHTML = headerRow;
+    table.innerHTML = `
+      <thead>
+        <tr>
+          <th style="width: 14.28%; padding: 8px 0; text-align: center; color: #e74c3c;">일</th>
+          <th style="width: 14.28%; padding: 8px 0; text-align: center;">월</th>
+          <th style="width: 14.28%; padding: 8px 0; text-align: center;">화</th>
+          <th style="width: 14.28%; padding: 8px 0; text-align: center;">수</th>
+          <th style="width: 14.28%; padding: 8px 0; text-align: center;">목</th>
+          <th style="width: 14.28%; padding: 8px 0; text-align: center;">금</th>
+          <th style="width: 14.28%; padding: 8px 0; text-align: center; color: #3498db;">토</th>
+        </tr>
+      </thead>
+    `;
 
+    const first = new Date(year, month, 1);
+    const lastDate = new Date(year, month + 1, 0).getDate();
     let row = document.createElement("tr");
 
-    // 1일 앞의 빈칸 채우기
     for (let i = 0; i < first.getDay(); i++) {
       row.appendChild(document.createElement("td"));
     }
 
     for (let d = 1; d <= lastDate; d++) {
       const cell = document.createElement("td");
-      cell.style.padding = "6px";
+      cell.style.padding = "10px 0";
       cell.style.textAlign = "center";
+      cell.style.verticalAlign = "top";
+      cell.style.borderTop = "1px solid #eee";
 
       const ds = `${year}-${String(month + 1).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
-      const mark = getMark(ds); // 기존에 있던 기호 가져오는 함수
+      const mark = getMark(ds); // 이 함수는 외부(goals_data 등)에 있다고 가정합니다.
 
-      // 오늘 날짜면 배경색 강조
-      const todayStr = getKST().toISOString().slice(0, 10);
+      const todayStr = getKSTDateStr(getKST());
       if (ds === todayStr) {
         cell.style.backgroundColor = "#fff9db";
+        cell.style.borderRadius = "4px";
       }
 
-      cell.innerHTML = `${d}<br><span style="font-size:12px">${mark}</span>`;
+      cell.innerHTML = `
+        <div style="font-weight: bold; font-size: 14px;">${d}</div>
+        <div style="font-size: 12px; margin-top: 4px;">${mark}</div>
+      `;
       row.appendChild(cell);
 
-      // 토요일이면 줄바꿈
       if ((first.getDay() + d) % 7 === 0) {
         table.appendChild(row);
         row = document.createElement("tr");
       }
     }
 
+    while (row.children.length < 7 && row.children.length > 0) {
+      row.appendChild(document.createElement("td"));
+    }
+
     table.appendChild(row);
     elem.appendChild(table);
   }
 
-  // 스크립트 로드 시 즉시 실행
   initCalendar();
 </script>
