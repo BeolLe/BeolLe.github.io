@@ -1,50 +1,48 @@
-<div id="goals-calendar"></div>
-
 <script>
-  const GOALS_DATA = {
-    {% for goal in site.goals %}
-      "{{ goal.date | date: '%Y-%m-%d' }}": {
-        status: {{ goal.status | default: 'planned' | jsonify }}
-      },
-    {% endfor %}
-  };
-
+  // 1. KST 기준 오늘 날짜 가져오는 공통 함수
   function getKST() {
     const now = new Date();
-    return new Date(now.getTime() + 9 * 60 * 60 * 1000);
+    // UTC 시간에 9시간을 더해 한국 시간으로 변환
+    return new Date(now.getTime() + (9 * 60 * 60 * 1000));
   }
 
-  const todayKST = getKST();
-  const year = todayKST.getFullYear();
-  const month = todayKST.getMonth(); // 0~11
+  // 2. 달력 생성 실행부
+  function initCalendar() {
+    const todayKST = getKST();
+    const currentYear = todayKST.getUTCFullYear();
+    const currentMonth = todayKST.getUTCMonth(); // 0~11 (현재 12월이면 11 반환)
 
-  function getMark(dateStr) {
-    const g = GOALS_DATA[dateStr];
-    if (!g) return "○";              // 목표 없음
-    if (g.status === "done") return "✔";   // 달성
-    if (g.status === "missed") return "✘"; // 실패
-    return "●";                           // 목표 있음 (진행/미확정)
+    // 달력 그리기 함수 호출 (현재 연, 월 전달)
+    buildCalendar(currentYear, currentMonth);
   }
 
   function buildCalendar(year, month) {
     const elem = document.getElementById("goals-calendar");
+    if (!elem) return;
     elem.innerHTML = "";
+
+    // 달력 상단에 현재 몇 월인지 표시 (출력할 때는 +1 필수)
+    const title = document.createElement("div");
+    title.style.textAlign = "center";
+    title.style.fontWeight = "bold";
+    title.style.marginBottom = "10px";
+    title.innerText = `${year}년 ${month + 1}월`;
+    elem.appendChild(title);
 
     const first = new Date(year, month, 1);
     const lastDate = new Date(year, month + 1, 0).getDate();
 
     const table = document.createElement("table");
-    table.style.borderCollapse = "collapse";
     table.style.width = "100%";
-    table.innerHTML = `
-      <tr>
-        <th>일</th><th>월</th><th>화</th><th>수</th>
-        <th>목</th><th>금</th><th>토</th>
-      </tr>
-    `;
+    table.style.borderCollapse = "collapse";
+    
+    // 헤더(요일) 생성
+    let headerRow = "<tr><th>일</th><th>월</th><th>화</th><th>수</th><th>목</th><th>금</th><th>토</th></tr>";
+    table.innerHTML = headerRow;
 
     let row = document.createElement("tr");
 
+    // 1일 앞의 빈칸 채우기
     for (let i = 0; i < first.getDay(); i++) {
       row.appendChild(document.createElement("td"));
     }
@@ -54,12 +52,19 @@
       cell.style.padding = "6px";
       cell.style.textAlign = "center";
 
-      const ds = `${year}-${String(month+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
-      const mark = getMark(ds);
+      const ds = `${year}-${String(month + 1).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
+      const mark = getMark(ds); // 기존에 있던 기호 가져오는 함수
+
+      // 오늘 날짜면 배경색 강조
+      const todayStr = getKST().toISOString().slice(0, 10);
+      if (ds === todayStr) {
+        cell.style.backgroundColor = "#fff9db";
+      }
 
       cell.innerHTML = `${d}<br><span style="font-size:12px">${mark}</span>`;
       row.appendChild(cell);
 
+      // 토요일이면 줄바꿈
       if ((first.getDay() + d) % 7 === 0) {
         table.appendChild(row);
         row = document.createElement("tr");
@@ -70,9 +75,6 @@
     elem.appendChild(table);
   }
 
-  buildCalendar(year, month);
+  // 스크립트 로드 시 즉시 실행
+  initCalendar();
 </script>
-
-<p style="font-size:12px; margin-top:8px;">
-  ✔ 달성 &nbsp; ● 목표 있음 &nbsp; ✘ 실패 &nbsp; ○ 목표 없음
-</p>
