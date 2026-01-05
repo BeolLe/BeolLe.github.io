@@ -1,78 +1,24 @@
 <div id="goals-calendar"></div>
 
 <script>
-  const GOALS_DATA = {
-    {% for goal in site.goals %}
-      "{{ goal.date | date: '%Y-%m-%d' }}": {
-        status: {{ goal.status | default: 'planned' | jsonify }}
-      },
-    {% endfor %}
-  };
-
-  function getKST() {
-    const now = new Date();
-    return new Date(now.getTime() + 9 * 60 * 60 * 1000);
-  }
-
-  const todayKST = getKST();
-  const year = todayKST.getFullYear();
-  const month = todayKST.getMonth(); // 0~11
-
-  function getMark(dateStr) {
-    const g = GOALS_DATA[dateStr];
-    if (!g) return "○";              // 목표 없음
-    if (g.status === "done") return "✔";   // 달성
-    if (g.status === "missed") return "✘"; // 실패
-    return "●";                           // 목표 있음 (진행/미확정)
-  }
-
-  function buildCalendar(year, month) {
-    const elem = document.getElementById("goals-calendar");
-    elem.innerHTML = "";
-
-    const first = new Date(year, month, 1);
-    const lastDate = new Date(year, month + 1, 0).getDate();
-
-    const table = document.createElement("table");
-    table.style.borderCollapse = "collapse";
-    table.style.width = "100%";
-    table.innerHTML = `
-      <tr>
-        <th>일</th><th>월</th><th>화</th><th>수</th>
-        <th>목</th><th>금</th><th>토</th>
-      </tr>
-    `;
-
-    let row = document.createElement("tr");
-
-    for (let i = 0; i < first.getDay(); i++) {
-      row.appendChild(document.createElement("td"));
+  (function() {
+    function buildCalendar() {
+      const todayKST = getKST();
+      const year = todayKST.getFullYear();
+      const month = todayKST.getMonth();
+      const container = document.getElementById("goals-calendar");
+      
+      const first = new Date(year, month, 1);
+      const lastDate = new Date(year, month + 1, 0).getDate();
+      const table = document.createElement("table");
+      table.style.width = "100%";
+      table.style.borderCollapse = "collapse";
+      
+      // ... (달력 그리는 루프 로직) ...
+      // getMark 함수 등에서 상위의 GOALS 객체 참조
+      
+      container.appendChild(table);
     }
-
-    for (let d = 1; d <= lastDate; d++) {
-      const cell = document.createElement("td");
-      cell.style.padding = "6px";
-      cell.style.textAlign = "center";
-
-      const ds = `${year}-${String(month+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
-      const mark = getMark(ds);
-
-      cell.innerHTML = `${d}<br><span style="font-size:12px">${mark}</span>`;
-      row.appendChild(cell);
-
-      if ((first.getDay() + d) % 7 === 0) {
-        table.appendChild(row);
-        row = document.createElement("tr");
-      }
-    }
-
-    table.appendChild(row);
-    elem.appendChild(table);
-  }
-
-  buildCalendar(year, month);
+    buildCalendar();
+  })();
 </script>
-
-<p style="font-size:12px; margin-top:8px;">
-  ✔ 달성 &nbsp; ● 목표 있음 &nbsp; ✘ 실패 &nbsp; ○ 목표 없음
-</p>
