@@ -1,24 +1,102 @@
-<div id="goals-calendar"></div>
-
 <script>
-  (function() {
-    function buildCalendar() {
-      const todayKST = getKST();
-      const year = todayKST.getFullYear();
-      const month = todayKST.getMonth();
-      const container = document.getElementById("goals-calendar");
-      
-      const first = new Date(year, month, 1);
-      const lastDate = new Date(year, month + 1, 0).getDate();
-      const table = document.createElement("table");
-      table.style.width = "100%";
-      table.style.borderCollapse = "collapse";
-      
-      // ... (달력 그리는 루프 로직) ...
-      // getMark 함수 등에서 상위의 GOALS 객체 참조
-      
-      container.appendChild(table);
+
+  // 1. KST 기준 날짜 관련 함수들
+  function getKST() {
+    const now = new Date();
+    // UTC 시간에 9시간을 더해 한국 시간으로 변환
+    return new Date(now.getTime() + (9 * 60 * 60 * 1000));
+  }
+
+  // 필수 추가: Date 객체를 YYYY-MM-DD 문자열로 변환하는 함수
+  function getKSTDateStr(dateObj) {
+    return dateObj.toISOString().slice(0, 10);
+  }
+
+  // 2. 달력 생성 실행부
+  function initCalendar() {
+    const todayKST = getKST();
+    const currentYear = todayKST.getUTCFullYear();
+    const currentMonth = todayKST.getUTCMonth(); 
+
+    buildCalendar(currentYear, currentMonth);
+  }
+
+  function buildCalendar(year, month) {
+    const elem = document.getElementById("goals-calendar");
+    if (!elem) return;
+    elem.innerHTML = "";
+
+    const title = document.createElement("div");
+    title.style.textAlign = "center";
+    title.style.fontWeight = "bold";
+    title.style.marginBottom = "15px";
+    title.style.fontSize = "1.1em";
+    title.innerText = `${year}년 ${month + 1}월`;
+    elem.appendChild(title);
+
+    const table = document.createElement("table");
+    table.style.width = "100%";
+    table.style.tableLayout = "fixed"; 
+    table.style.borderCollapse = "collapse";
+    
+    table.innerHTML = `
+      <thead>
+        <tr>
+          <th style="width: 14.28%; padding: 8px 0; text-align: center; color: #e74c3c;">일</th>
+          <th style="width: 14.28%; padding: 8px 0; text-align: center;">월</th>
+          <th style="width: 14.28%; padding: 8px 0; text-align: center;">화</th>
+          <th style="width: 14.28%; padding: 8px 0; text-align: center;">수</th>
+          <th style="width: 14.28%; padding: 8px 0; text-align: center;">목</th>
+          <th style="width: 14.28%; padding: 8px 0; text-align: center;">금</th>
+          <th style="width: 14.28%; padding: 8px 0; text-align: center; color: #3498db;">토</th>
+        </tr>
+      </thead>
+    `;
+
+    const first = new Date(year, month, 1);
+    const lastDate = new Date(year, month + 1, 0).getDate();
+    let row = document.createElement("tr");
+
+    for (let i = 0; i < first.getDay(); i++) {
+      row.appendChild(document.createElement("td"));
     }
-    buildCalendar();
-  })();
+
+    for (let d = 1; d <= lastDate; d++) {
+      const cell = document.createElement("td");
+      cell.style.padding = "10px 0";
+      cell.style.textAlign = "center";
+      cell.style.verticalAlign = "top";
+      cell.style.borderTop = "1px solid #eee";
+
+      const ds = `${year}-${String(month + 1).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
+      const mark = getMark(ds); // 이 함수는 외부(goals_data 등)에 있다고 가정합니다.
+
+      const todayStr = getKSTDateStr(getKST());
+      if (ds === todayStr) {
+        cell.style.backgroundColor = "#fff9db";
+        cell.style.borderRadius = "4px";
+      }
+
+      cell.innerHTML = `
+        <div style="font-weight: bold; font-size: 14px;">${d}</div>
+        <div style="font-size: 12px; margin-top: 4px;">${mark}</div>
+      `;
+      row.appendChild(cell);
+
+      if ((first.getDay() + d) % 7 === 0) {
+        table.appendChild(row);
+        row = document.createElement("tr");
+      }
+    }
+
+    while (row.children.length < 7 && row.children.length > 0) {
+      row.appendChild(document.createElement("td"));
+    }
+
+    table.appendChild(row);
+    elem.appendChild(table);
+  }
+
+  initCalendar();
+>>>>>>> 707c896ed7498093d609c691e1347065753e00b4
 </script>

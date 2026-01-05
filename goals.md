@@ -20,7 +20,7 @@ topnav: topnav
 </p>
 
 <script>
-  // 1) Jekyll 컬렉션 -> JS 객체 (timetable 추가)
+  // 1. 데이터 로드 (Liquid 구문)
   const GOALS = {
     {% for goal in site.goals %}
       "{{ goal.date | date: '%Y-%m-%d' }}": {
@@ -31,16 +31,22 @@ topnav: topnav
     {% endfor %}
   };
 
+  // 2. KST 날짜 계산 함수 보정
   function getKST() {
     const now = new Date();
-    return new Date(now.getTime() + 9 * 60 * 60 * 1000); // UTC+9
+    // 현재 시간의 타임스탬프에 9시간 추가
+    return new Date(now.getTime() + (9 * 60 * 60 * 1000));
   }
 
   function getKSTDateStr(dateObj) {
-    return dateObj.toISOString().slice(0,10); // YYYY-MM-DD
+    // getKST()로 생성된 객체는 이미 9시간이 더해졌으므로 getUTC 계열 함수 사용이 안전함
+    const y = dateObj.getUTCFullYear();
+    const m = String(dateObj.getUTCMonth() + 1).padStart(2, '0');
+    const d = String(dateObj.getUTCDate()).padStart(2, '0');
+    return `${y}-${m}-${d}`;
   }
 
-  // 2) 오늘의 목표 및 시간표 렌더링
+  // 3. 오늘의 목표 및 시간표 렌더링
   function renderTodayGoal() {
     const today = getKSTDateStr(getKST());
     const box = document.getElementById("today-goal-box");
@@ -54,23 +60,16 @@ topnav: topnav
       return;
     }
 
-    let icon = "";
-    if (goal.status === "done") icon = "✅";
-    else if (goal.status === "missed") icon = "❌";
-    else icon = "📝";
+    let icon = (goal.status === "done") ? "✅" : (goal.status === "missed" ? "❌" : "📝");
 
     box.innerHTML = `
       <div>
         ${icon} 오늘의 목표: <strong>${goal.text}</strong><br>
         <label style="font-size:14px; margin-top:6px; display:inline-block;">
-          <input type="checkbox" disabled
-            ${goal.status === "done" ? "checked" : ""}>
-          (status: ${goal.status})
         </label>
       </div>
     `;
 
-    // 시간표 렌더링 로직 추가
     if (goal.timetable && goal.timetable.length > 0) {
       timetableContainer.style.display = "block";
       timetableList.innerHTML = goal.timetable.map(item => 
@@ -81,11 +80,11 @@ topnav: topnav
     }
   }
 
-  // 3) 달력 렌더링 (기존 코드 유지)
+  // 4. 달력 렌더링 (12월 자동 갱신 및 정렬 보정)
   function buildCalendar() {
     const todayKST = getKST();
-    const year = todayKST.getFullYear();
-    const month = todayKST.getMonth();
+    const year = todayKST.getUTCFullYear();
+    const month = todayKST.getUTCMonth(); // 0-11
 
     const container = document.getElementById("goals-calendar");
     container.innerHTML = "";
@@ -96,10 +95,17 @@ topnav: topnav
     const table = document.createElement("table");
     table.style.borderCollapse = "collapse";
     table.style.width = "100%";
+    table.style.tableLayout = "fixed"; // 정렬 핵심 속성
+
     table.innerHTML = `
       <tr>
-        <th>일</th><th>월</th><th>화</th><th>수</th>
-        <th>목</th><th>금</th><th>토</th>
+        <th style="text-align: center; padding: 10px 0;">일</th>
+        <th style="text-align: center; padding: 10px 0;">월</th>
+        <th style="text-align: center; padding: 10px 0;">화</th>
+        <th style="text-align: center; padding: 10px 0;">수</th>
+        <th style="text-align: center; padding: 10px 0;">목</th>
+        <th style="text-align: center; padding: 10px 0;">금</th>
+        <th style="text-align: center; padding: 10px 0;">토</th>
       </tr>
     `;
 
@@ -119,13 +125,19 @@ topnav: topnav
 
     for (let d = 1; d <= lastDate; d++) {
       const cell = document.createElement("td");
-      cell.style.padding = "6px";
+      cell.style.padding = "10px 0";
       cell.style.textAlign = "center";
+      cell.style.borderTop = "1px solid #eee";
 
       const ds = `${year}-${String(month+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
       const mark = markFor(ds);
 
-      cell.innerHTML = `${d}<br><span style="font-size:12px">${mark}</span>`;
+      // 오늘 날짜 강조
+      if (ds === getKSTDateStr(getKST())) {
+        cell.style.backgroundColor = "#fff9db";
+      }
+
+      cell.innerHTML = `<strong>${d}</strong><br><span style="font-size:12px">${mark}</span>`;
       row.appendChild(cell);
 
       if ((first.getDay() + d) % 7 === 0) {
@@ -134,10 +146,16 @@ topnav: topnav
       }
     }
 
+    // 빈칸 채우기
+    while (row.children.length > 0 && row.children.length < 7) {
+      row.appendChild(document.createElement("td"));
+    }
+
     table.appendChild(row);
     container.appendChild(table);
   }
 
+  // 실행
   renderTodayGoal();
   buildCalendar();
 </script>
