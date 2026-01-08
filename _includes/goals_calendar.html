@@ -69,8 +69,8 @@
       cell.style.borderTop = "1px solid #eee";
 
       const ds = `${year}-${String(month + 1).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
-      const mark = getMark(ds); // 이 함수는 외부(goals_data 등)에 있다고 가정합니다.
-
+      const mark = getMark(ds); 
+      
       const todayStr = getKSTDateStr(getKST());
       if (ds === todayStr) {
         cell.style.backgroundColor = "#fff9db";
