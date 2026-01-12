@@ -9,11 +9,11 @@ title: Ronny's Blog
   /* 3단 레이아웃 컨테이너 */
   .dashboard-container {
     display: flex;
-    align-items: flex-start; /* 위쪽 라인 맞춤 */
+    align-items: flex-start;
     gap: 20px;
     max-width: 1000px;
     margin: 40px auto;
-    background: #121212; /* 전체 배경 어둡게 */
+    background: #121212;
     padding: 20px;
     border-radius: 15px;
     border: 1px solid #333;
@@ -24,13 +24,14 @@ title: Ronny's Blog
 
   /* 1. 왼쪽: 캐릭터 영역 */
   .col-left {
-    flex: 0 0 200px; /* 너비 고정 */
+    flex: 0 0 200px;
     text-align: center;
   }
   .char-img {
     width: 100%;
     border-radius: 10px;
     border: 3px solid #444;
+    background-color: #333; /* 이미지 로딩 전 배경색 */
   }
   .char-level {
     margin-top: 10px;
@@ -43,20 +44,20 @@ title: Ronny's Blog
 
   /* 2. 중앙: 스탯 바 영역 */
   .col-center {
-    flex: 1; /* 남은 공간의 절반 차지 */
+    flex: 1;
     padding: 0 10px;
-    border-right: 1px dashed #444; /* 오른쪽 구분선 */
+    border-right: 1px dashed #444;
   }
 
   /* 3. 오른쪽: 설명 영역 */
   .col-right {
-    flex: 1; /* 남은 공간의 절반 차지 */
+    flex: 1;
     padding-left: 10px;
     font-size: 0.85em;
     display: flex;
     flex-direction: column;
-    justify-content: space-around; /* 세로 간격 균등 분배 */
-    height: 100%; /* 높이 꽉 채우기 */
+    justify-content: space-around;
+    height: 100%;
   }
 
   /* 공통 스타일 */
@@ -110,10 +111,33 @@ title: Ronny's Blog
 {% assign vit_tags = "workout" | split: "," %}
 {% assign dex_tags = "problem" | split: "," %}
 
-{% assign str_raw = 0 %}{% for t in str_tags %}{% assign str_raw = str_raw | plus: site.tags[t].size %}{% endfor %}
-{% assign int_raw = 0 %}{% for t in int_tags %}{% assign int_raw = int_raw | plus: site.tags[t].size %}{% endfor %}
-{% assign vit_raw = 0 %}{% for t in vit_tags %}{% assign vit_raw = vit_raw | plus: site.tags[t].size %}{% endfor %}
-{% assign dex_raw = 0 %}{% for t in dex_tags %}{% assign dex_raw = dex_raw | plus: site.tags[t].size %}{% endfor %}
+{% assign str_raw = 0 %}
+{% for t in str_tags %}
+  {% if site.tags[t] %}
+    {% assign str_raw = str_raw | plus: site.tags[t].size %}
+  {% endif %}
+{% endfor %}
+
+{% assign int_raw = 0 %}
+{% for t in int_tags %}
+  {% if site.tags[t] %}
+    {% assign int_raw = int_raw | plus: site.tags[t].size %}
+  {% endif %}
+{% endfor %}
+
+{% assign vit_raw = 0 %}
+{% for t in vit_tags %}
+  {% if site.tags[t] %}
+    {% assign vit_raw = vit_raw | plus: site.tags[t].size %}
+  {% endif %}
+{% endfor %}
+
+{% assign dex_raw = 0 %}
+{% for t in dex_tags %}
+  {% if site.tags[t] %}
+    {% assign dex_raw = dex_raw | plus: site.tags[t].size %}
+  {% endif %}
+{% endfor %}
 
 {% assign max_stat = 10 %}
 
