@@ -131,7 +131,7 @@ title: Ronny's Blog
 <div class="dashboard-container">
   
   <div class="col-left">
-    <img src="/assets/img/profile.png" alt="My Character" class="char-img" onerror="this.src='https://via.placeholder.com/200x250?text=No+Image'">
+    <img src="/img/profile.png" alt="My Character" class="char-img" onerror="this.src='https://via.placeholder.com/200x250?text=No+Image'">
     <div class="char-level">TOTAL LV. {{ str_val | plus: int_val | plus: vit_val | plus: dex_val }}</div>
   </div>
 
