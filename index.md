@@ -40,6 +40,28 @@ title: Ronny's Blog
     font-weight: bold;
     padding: 5px;
     border-radius: 5px;
+    font-size: 1.1em;
+  }
+  
+  /* 레벨 밑 경험치 바 스타일 추가 */
+  .level-exp-container {
+    margin-top: 8px;
+    text-align: left;
+    font-size: 0.75em;
+    color: #aaa;
+  }
+  .level-exp-bar {
+    height: 8px;
+    background: #333;
+    border-radius: 4px;
+    margin-top: 3px;
+    overflow: hidden;
+    border: 1px solid #444;
+  }
+  .level-exp-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #00c6ff, #0072ff); /* 파란색 계열 그라데이션 */
+    border-radius: 4px;
   }
 
   /* 2. 중앙: 스탯 바 영역 */
@@ -112,32 +134,16 @@ title: Ronny's Blog
 {% assign dex_tags = "problem" | split: "," %}
 
 {% assign str_raw = 0 %}
-{% for t in str_tags %}
-  {% if site.tags[t] %}
-    {% assign str_raw = str_raw | plus: site.tags[t].size %}
-  {% endif %}
-{% endfor %}
+{% for t in str_tags %}{% if site.tags[t] %}{% assign str_raw = str_raw | plus: site.tags[t].size %}{% endif %}{% endfor %}
 
 {% assign int_raw = 0 %}
-{% for t in int_tags %}
-  {% if site.tags[t] %}
-    {% assign int_raw = int_raw | plus: site.tags[t].size %}
-  {% endif %}
-{% endfor %}
+{% for t in int_tags %}{% if site.tags[t] %}{% assign int_raw = int_raw | plus: site.tags[t].size %}{% endif %}{% endfor %}
 
 {% assign vit_raw = 0 %}
-{% for t in vit_tags %}
-  {% if site.tags[t] %}
-    {% assign vit_raw = vit_raw | plus: site.tags[t].size %}
-  {% endif %}
-{% endfor %}
+{% for t in vit_tags %}{% if site.tags[t] %}{% assign vit_raw = vit_raw | plus: site.tags[t].size %}{% endif %}{% endfor %}
 
 {% assign dex_raw = 0 %}
-{% for t in dex_tags %}
-  {% if site.tags[t] %}
-    {% assign dex_raw = dex_raw | plus: site.tags[t].size %}
-  {% endif %}
-{% endfor %}
+{% for t in dex_tags %}{% if site.tags[t] %}{% assign dex_raw = dex_raw | plus: site.tags[t].size %}{% endif %}{% endfor %}
 
 {% assign max_stat = 10 %}
 
@@ -150,13 +156,26 @@ title: Ronny's Blog
 {% assign int_val = int_raw | divided_by: int_step %}
 {% assign vit_val = vit_raw | divided_by: vit_step %}
 {% assign dex_val = dex_raw | divided_by: dex_step %}
-
-
+{% assign total_posts = site.posts.size %}
+{% assign main_level = total_posts | divided_by: 20 | plus: 1 %}
+{% assign current_xp = total_posts | modulo: 20 %}
+{% assign xp_percent = current_xp | times: 5 %}
 <div class="dashboard-container">
   
   <div class="col-left">
     <img src="/img/profile.png" alt="My Character" class="char-img" onerror="this.src='https://via.placeholder.com/200x250?text=No+Image'">
-    <div class="char-level">TOTAL LV. {{ str_val | plus: int_val | plus: vit_val | plus: dex_val }}</div>
+    
+    <div class="char-level">LV. {{ main_level }}</div>
+
+    <div class="level-exp-container">
+      <div style="display:flex; justify-content:space-between;">
+        <span>EXP</span>
+        <span>{{ current_xp }} / 20</span>
+      </div>
+      <div class="level-exp-bar">
+        <div class="level-exp-fill" style="width: {{ xp_percent }}%;"></div>
+      </div>
+    </div>
   </div>
 
   <div class="col-center">
