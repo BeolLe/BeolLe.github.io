@@ -43,7 +43,7 @@ title: Ronny's Blog
     font-size: 1.1em;
   }
   
-  /* 레벨 밑 경험치 바 스타일 추가 */
+  /* 레벨 밑 경험치 바 스타일 */
   .level-exp-container {
     margin-top: 8px;
     text-align: left;
@@ -60,8 +60,9 @@ title: Ronny's Blog
   }
   .level-exp-fill {
     height: 100%;
-    background: linear-gradient(90deg, #00c6ff, #0072ff); /* 파란색 계열 그라데이션 */
+    background: linear-gradient(90deg, #00c6ff, #0072ff);
     border-radius: 4px;
+    transition: width 0.3s ease;
   }
 
   /* 2. 중앙: 스탯 바 영역 */
@@ -156,7 +157,12 @@ title: Ronny's Blog
 {% assign int_val = int_raw | divided_by: int_step %}
 {% assign vit_val = vit_raw | divided_by: vit_step %}
 {% assign dex_val = dex_raw | divided_by: dex_step %}
-{% assign total_posts = site.posts.size %}
+{% if paginator %}
+  {% assign total_posts = paginator.total_posts %}
+{% else %}
+  {% assign total_posts = site.posts | size %}
+{% endif %}
+
 {% assign main_level = total_posts | divided_by: 20 | plus: 1 %}
 {% assign current_xp = total_posts | modulo: 20 %}
 {% assign xp_percent = current_xp | times: 5 %}
