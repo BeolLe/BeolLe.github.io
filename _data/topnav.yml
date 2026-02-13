@@ -15,13 +15,13 @@ topnav_dropdowns:
     - title: Study
       folderitems:
       - title: Engineering
-        url: /engineering/
+        url: /boards/engineering/
       - title: Analytics
-        url: /analytics/
+        url: /boards/analytics/
       - title: Archive
-        url: /archive/
+        url: /boards/archive/
       - title: Log
-        url: /log/
+        url: /boards/log/
     - title: Portfolio
       folderitems:
         - title: Portfolio

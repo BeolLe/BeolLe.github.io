@@ -5,7 +5,7 @@ permalink: /boards/analytics/
 ---
 
 
-analytics 관련 글 목록입니다.
+Analytics 관련 글 목록입니다.
 
 {% for post in site.categories.analytics %}
 - ({{ post.date | date: "%Y-%m-%d" }}) [{{ post.title }}]({{ post.url }})  
