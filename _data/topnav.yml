@@ -5,8 +5,6 @@ topnav:
   items:
     - title: GitHub
       external_url: https://github.com/BeolLe/BeolLe.github.io
-    - title: Life
-      external_url: https://ronny-data.tistory.com/
 
 #Topnav dropdowns
 topnav_dropdowns:
