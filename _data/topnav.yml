@@ -14,16 +14,14 @@ topnav_dropdowns:
   folders:
     - title: Study
       folderitems:
-        - title: AI
-          url: /boards/ai/
-        - title: Computer Science
-          url: /boards/cs/
-        - title: Data Analysis
-          url: /boards/da/
-        - title: Network
-          url: /boards/net/
-        - title: Cloud
-          url: /boards/cloud/
+      - title: Engineering
+        url: /engineering/
+      - title: Analytics
+        url: /analytics/
+      - title: Archive
+        url: /archive/
+      - title: Log
+        url: /log/
     - title: Portfolio
       folderitems:
         - title: Portfolio
