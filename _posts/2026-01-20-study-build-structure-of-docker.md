@@ -1,8 +1,8 @@
 ---
 layout: post
 title: "도커 기본구조에 대해 공부 및 실습하기"
-categories: cloud
-tags: [Cloud, Docker, knowledge, build]
+categories: enigneer
+tags: [Cloud, Docker, knowledge, Engineer, build]
 published: true
 ---
 
