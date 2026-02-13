@@ -15,7 +15,7 @@ topnav_dropdowns:
     - title: Study
       folderitems:
       - title: Engineering
-        url: /boards/engineering/
+        url: /boards/engineer/
       - title: Analytics
         url: /boards/analytics/
       - title: Archive
