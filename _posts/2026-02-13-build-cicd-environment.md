@@ -111,7 +111,7 @@ ArgoCD와 Flux는 같은 GitOps 방식을 사용하지만, Flux에 비해 편하
     결과 클라이언트는 1.35.0, 서버는 1.30.14, 워커 노드는 1.29.15의 버전 차이가 발생.
     쿠버네티스는 공식적으로 +- 1까지만 호환성을 보장하기 때문에 클라이언트 버전을 낮춤.
     2. 1.29부터 1.33까지 보장하는 1.18버전으로 설치.
-    `kubectl apply -f [https://github.com/cert-manager/cert-manager/releases/download/v1.18.0/cert-manager.yaml](https://github.com/cert-manager/cert-manager/releases/download/v1.18.0/cert-manager.yaml)` \
+    `kubectl apply -f [https://github.com/cert-manager/cert-manager/releases/download/v1.18.0/cert-manager.yaml](https://github.com/cert-manager/cert-manager/releases/download/v1.18.0/cert-manager.yaml)`
 2. ARC
     1. 보안을 위해 깃허브에서 토큰 발급
     2. 쿠버네티스 상에 네임스페이스 생성 및 secret에 토큰 저장
@@ -133,12 +133,10 @@ ArgoCD와 Flux는 같은 GitOps 방식을 사용하지만, Flux에 비해 편하
     --create-namespace \
     --set authSecret.create=false \
     --set authSecret.name=controller-manager`
-    6. 단..이렇게 하니까 윈도우에서 자꾸 실행되며 방화벽 문제가 생김. 그래서 찾다보니 윈도우즈에서 wsl2로 돌리는 노드는 워커로만 써야한다고 함. cert-manager도 linux에서만 돌아가는데 wsl2를 돌리다보니 리눅스로 판단하지만, 실제로는 윈도우즈를 거친 후에 linux에서 실행되는 것과 같기때문에, 에러가 발생. 따라서 윈도우 노드에 windows라고 라벨을 넣어주려 했지만, 쿠버네티스 설정 상 실패. 따라서 필요한 잡들만 마스터에서 작동하도록 설정.
-    
+    6. 단..이렇게 하니까 윈도우에서 자꾸 실행되며 방화벽 문제가 생김. 그래서 찾다보니 윈도우즈에서 wsl2로 돌리는 노드는 워커로만 써야한다고 함. cert-manager도 linux에서만 돌아가는데 wsl2를 돌리다보니 리눅스로 판단하지만, 실제로는 윈도우즈를 거친 후에 linux에서 실행되는 것과 같기때문에, 에러가 발생. 따라서 윈도우 노드에 windows라고 라벨을 넣어주려 했지만, 쿠버네티스 설정 상 실패. 따라서 필요한 잡들만 마스터에서 작동하도록 설정.\
     `cert-manager` 웹훅을 마스터에서 작동.\
     `kubectl patch deployment -n cert-manager cert-manager-webhook \
-    --patch '{"spec": {"template": {"spec": {"nodeSelector": {"[node-role.kubernetes.io/control-plane](http://node-role.kubernetes.io/control-plane)": ""}}}}}'
-    
+    --patch '{"spec": {"template": {"spec": {"nodeSelector": {"[node-role.kubernetes.io/control-plane](http://node-role.kubernetes.io/control-plane)": ""}}}}}'\
     ARC도 마스터에서 작동하게 upgrade\
     helm upgrade --install actions-runner-controller actions-runner-controller/actions-runner-controller \
     --namespace actions-runner-system \
@@ -146,7 +144,7 @@ ArgoCD와 Flux는 같은 GitOps 방식을 사용하지만, Flux에 비해 편하
     --set authSecret.create=false \
     --set authSecret.name=controller-manager \
     --set nodeSelector."node-role\.kubernetes\.io/control-plane"=""`
-    7. 이후에 깃허브 레포 테스트용으로 하나 만들어서 연동하고 테스트 성공\
+    7. 이후에 깃허브 레포 테스트용으로 하나 만들어서 연동하고 테스트 성공
 3. ArgoCD
     1. helm 저장소 등록\
     `helm repo add argo https://argoproj.github.io/argo-helm
