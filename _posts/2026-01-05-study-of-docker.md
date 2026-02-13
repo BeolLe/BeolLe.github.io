@@ -2,7 +2,7 @@
 layout: post
 title: "도커에 대해 공부하기"
 categories: engineer
-tags: [Cloud, Docker, knowledge, ,engineer, build]
+tags: [Cloud, Docker, knowledge, Engineer, build]
 published: true
 ---
 
