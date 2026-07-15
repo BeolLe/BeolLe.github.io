@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "최근 근황과 다짐"
-categories: logs
+categories: log
 tags: [workout]
 published: true
 ---
