@@ -28,4 +28,4 @@ print("Hello, world!")
 
 카테고리 : ai, analytics, archive, engineer, log
 
-태그 : AI, Archive, CS, Docker, Engineer, Kubernetes, build, knowledge, problem, study, ai, cs, da, network, cloud, meta_kaggle, diary, news, workout
+태그 : AI, Archive, CS, Docker, Engineer, Kubernetes, build, knowledge, problem, study, ai, cs, da, network, cloud, meta_kaggle, diary, news, workout, thoughts
