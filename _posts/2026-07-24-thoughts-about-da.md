@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "분석이란 무엇일까?"
-categories: analysis
+categories: analytics
 tags: [da, archive, thoughts]
 published: true
 ---
