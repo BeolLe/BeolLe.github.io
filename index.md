@@ -98,6 +98,18 @@ title: Ronny's Blog
     display: flex; justify-content: space-between;
     font-size: 0.9em; margin-bottom: 5px; font-weight: bold;
   }
+  .stat-name {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .stat-level-badge {
+    font-size: 0.72em;
+    color: #121212;
+    background: #ffd700;
+    padding: 2px 6px;
+    border-radius: 999px;
+  }
   .progress-bg {
     background: #222; height: 12px; border-radius: 6px;
     overflow: hidden; border: 1px solid #444;
@@ -188,22 +200,22 @@ title: Ronny's Blog
     <div class="section-title">STATS INFO</div>
 
     <div class="stat-row">
-      <div class="stat-label"><span>STR</span> <span>{{ str_val }} / {{ max_stat }}</span></div>
+      <div class="stat-label"><span class="stat-name">STR <span class="stat-level-badge">LV. {{ str_val }}</span></span><span>{{ str_val }} / {{ max_stat }}</span></div>
       <div class="progress-bg"><div class="progress-fill str-color" style="width: calc(({{ str_val }} / {{ max_stat }}) * 100%);"></div></div>
     </div>
 
     <div class="stat-row">
-      <div class="stat-label"><span>INT</span> <span>{{ int_val }} / {{ max_stat }}</span></div>
+      <div class="stat-label"><span class="stat-name">INT <span class="stat-level-badge">LV. {{ int_val }}</span></span><span>{{ int_val }} / {{ max_stat }}</span></div>
       <div class="progress-bg"><div class="progress-fill int-color" style="width: calc(({{ int_val }} / {{ max_stat }}) * 100%);"></div></div>
     </div>
 
     <div class="stat-row">
-      <div class="stat-label"><span>VIT</span> <span>{{ vit_val }} / {{ max_stat }}</span></div>
+      <div class="stat-label"><span class="stat-name">VIT <span class="stat-level-badge">LV. {{ vit_val }}</span></span><span>{{ vit_val }} / {{ max_stat }}</span></div>
       <div class="progress-bg"><div class="progress-fill vit-color" style="width: calc(({{ vit_val }} / {{ max_stat }}) * 100%);"></div></div>
     </div>
 
     <div class="stat-row">
-      <div class="stat-label"><span>DEX</span> <span>{{ dex_val }} / {{ max_stat }}</span></div>
+      <div class="stat-label"><span class="stat-name">DEX <span class="stat-level-badge">LV. {{ dex_val }}</span></span><span>{{ dex_val }} / {{ max_stat }}</span></div>
       <div class="progress-bg"><div class="progress-fill dex-color" style="width: calc(({{ dex_val }} / {{ max_stat }}) * 100%);"></div></div>
     </div>
   </div>
@@ -212,7 +224,7 @@ title: Ronny's Blog
     <div class="section-title">DETAILS</div>
 
     <div class="desc-row" style="border-left-color: #ff4d4d;">
-      <span class="desc-title">STR (Build)</span>
+      <span class="desc-title">STR (Build) | LV. {{ str_val }}</span>
       <span class="desc-detail">무언가 만들어본 경험</span>
       <span class="desc-detail" style="font-size:0.8em; color:#666;">
         👉 현재 {{ str_step }}회당 1pt (총 {{ str_raw }}회)
@@ -220,7 +232,7 @@ title: Ronny's Blog
     </div>
 
     <div class="desc-row" style="border-left-color: #4da6ff;">
-      <span class="desc-title">INT (Know)</span>
+      <span class="desc-title">INT (Know) | LV. {{ int_val }}</span>
       <span class="desc-detail">새로운 지식 습득</span>
       <span class="desc-detail" style="font-size:0.8em; color:#666;">
         👉 현재 {{ int_step }}회당 1pt (총 {{ int_raw }}회)
@@ -228,7 +240,7 @@ title: Ronny's Blog
     </div>
 
     <div class="desc-row" style="border-left-color: #4dff88;">
-      <span class="desc-title">VIT (Work)</span>
+      <span class="desc-title">VIT (Work) | LV. {{ vit_val }}</span>
       <span class="desc-detail">꾸준한 운동 기록</span>
       <span class="desc-detail" style="font-size:0.8em; color:#666;">
         👉 현재 {{ vit_step }}회당 1pt (총 {{ vit_raw }}회)
@@ -236,7 +248,7 @@ title: Ronny's Blog
     </div>
 
     <div class="desc-row" style="border-left-color: #ffb84d;">
-      <span class="desc-title">DEX (Prob)</span>
+      <span class="desc-title">DEX (Prob) | LV. {{ dex_val }}</span>
       <span class="desc-detail">문제 해결 및 디버깅</span>
       <span class="desc-detail" style="font-size:0.8em; color:#666;">
         👉 현재 {{ dex_step }}회당 1pt (총 {{ dex_raw }}회)

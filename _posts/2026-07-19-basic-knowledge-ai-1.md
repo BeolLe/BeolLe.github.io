@@ -2,7 +2,7 @@
 layout: post
 title: "AI에 대한 기본 지식 - 1. 머신러닝, 딥러닝의 기본 개념"
 categories: archive
-tags: [ai, knowledge, study]
+tags: [ai, knowledge, study, archive]
 published: true
 ---
 
